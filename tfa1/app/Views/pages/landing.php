@@ -6,11 +6,11 @@
 <body>
     
     <nav>
-    <a href="/">Home</a> |
-    <a href="/about">About</a> |
-    <a href="/customers">Customers</a> |
-    <a href="/users">Users</a>
-</nav>
+    <a href="<?= base_url() ?>">Home</a> |
+    <a href="<?= base_url('about') ?>">About</a> |
+    <a href="<?= base_url('customers') ?>">Customers</a> |
+    <a href="<?= base_url('users') ?>">Users</a>
+    </nav>
 
     <h1>Welcome to My CodeIgniter Application</h1>
 
