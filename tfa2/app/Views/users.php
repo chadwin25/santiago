@@ -21,7 +21,6 @@
             <div class="card">
                 <p><strong>Username:</strong> <?= esc($user['username']) ?></p>
                 <p><strong>Full Name:</strong> <?= esc($user['full_name']) ?></p>
-                <p><strong>Role:</strong> <?= esc($user['role']) ?></p>
             </div>
 
         <?php endforeach; ?>
