@@ -3,7 +3,7 @@
 use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
-$routes->get('/', 'Pages::landing');
-$routes->get('/about', 'Pages::about');
-$routes->get('/customers', 'Customers::index');
-$routes->get('/users', 'Users::index');
+$routes->get('/', 'TaskPages::index');
+$routes->get('/tasks', 'TaskPages::tasks');
+$routes->get('/profile', 'TaskPages::profile');
+$routes->get('/about', 'TaskPages::about');
