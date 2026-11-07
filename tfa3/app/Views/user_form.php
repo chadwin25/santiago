@@ -1,9 +1,20 @@
+<?php
+$isEdit = $user !== null;
+
+$username = old('username') ?? ($user['username'] ?? '');
+$fullName = old('full_name') ?? ($user['full_name'] ?? '');
+
+$formAction = $isEdit
+    ? base_url('users/' . $user['id'] . '/update')
+    : base_url('users/create');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New User | Santiago POS</title>
+    <title><?= $isEdit ? 'Edit User' : 'New User' ?> | Santiago POS</title>
     <link rel="stylesheet" href="<?= base_url('style.css') ?>">
 </head>
 <body>
@@ -20,11 +31,18 @@
     </nav>
 
     <main class="container">
-        <p class="eyebrow">User accounts / New user</p>
-        <h1>Add a <span class="accent-text">user.</span></h1>
-        <p class="lead">Enter the user details below.</p>
+        <p class="eyebrow">User accounts / <?= $isEdit ? 'Edit user' : 'New user' ?></p>
 
-        <form class="form-card" method="post" action="<?= base_url('users/create') ?>">
+        <h1>
+            <?= $isEdit ? 'Edit the' : 'Add a' ?>
+            <span class="accent-text">user.</span>
+        </h1>
+
+        <p class="lead">
+            <?= $isEdit ? 'Update the user details below.' : 'Enter the user details below.' ?>
+        </p>
+
+        <form class="form-card" method="post" action="<?= $formAction ?>">
             <?= csrf_field() ?>
 
             <div class="form-field">
@@ -34,7 +52,7 @@
                     id="username"
                     name="username"
                     maxlength="50"
-                    value="<?= esc(old('username') ?? '') ?>"
+                    value="<?= esc($username) ?>"
                     required
                     aria-invalid="<?= isset($validationErrors['username']) ? 'true' : 'false' ?>"
                 >
@@ -50,7 +68,7 @@
                     id="full_name"
                     name="full_name"
                     maxlength="100"
-                    value="<?= esc(old('full_name') ?? '') ?>"
+                    value="<?= esc($fullName) ?>"
                     required
                     aria-invalid="<?= isset($validationErrors['full_name']) ? 'true' : 'false' ?>"
                 >
@@ -59,7 +77,9 @@
                 <?php endif; ?>
             </div>
 
-            <button class="button button-primary" type="submit">Save user</button>
+            <button class="button button-primary" type="submit">
+                <?= $isEdit ? 'Update user' : 'Save user' ?>
+            </button>
             <a class="button" href="<?= base_url('users') ?>">Cancel</a>
         </form>
     </main>

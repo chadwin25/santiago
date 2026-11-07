@@ -42,6 +42,14 @@
             <div class="card">
                 <p><strong>Username:</strong> <?= esc($user['username']) ?></p>
                 <p><strong>Full Name:</strong> <?= esc($user['full_name']) ?></p>
+                <p>
+                    <a
+                        class="button"
+                        href="<?= base_url('users/' . $user['id'] . '/edit') ?>"
+                    >
+                        Edit
+                    </a>
+                </p>
             </div>
         <?php endforeach; ?>
     </main>
