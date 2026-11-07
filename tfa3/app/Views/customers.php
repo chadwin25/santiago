@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customers | Santiago POS</title>
-    <link rel="stylesheet" href="<?= base_url('style.css') ?>?v=2">
+    <link rel="stylesheet" href="<?= base_url('style.css') ?>">
 </head>
 <body>
 
@@ -24,6 +24,18 @@
         <h1>Meet the <span class="accent-text">customers.</span></h1>
         <p class="lead">
             <?= count($customers) ?> customer records retrieved from the database.
+        </p>
+
+        <?php if ($success = session()->getFlashdata('success')): ?>
+            <div class="form-alert form-alert-success" role="status">
+                <?= esc($success) ?>
+            </div>
+        <?php endif; ?>
+
+        <p>
+            <a class="button button-primary" href="<?= base_url('customers/new') ?>">
+                Add New Customer
+            </a>
         </p>
 
         <?php foreach ($customers as $customer): ?>
