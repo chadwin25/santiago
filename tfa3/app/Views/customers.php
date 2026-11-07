@@ -43,6 +43,14 @@
                 <p><strong>Full Name:</strong> <?= esc($customer['full_name']) ?></p>
                 <p><strong>Email:</strong> <?= esc($customer['email']) ?></p>
                 <p><strong>Phone:</strong> <?= esc($customer['phone'] ?? 'Not provided') ?></p>
+                <p>
+                    <a
+                        class="button"
+                        href="<?= base_url('customers/' . $customer['id'] . '/edit') ?>"
+                    >
+                        Edit
+                    </a>
+                </p>
             </div>
         <?php endforeach; ?>
     </main>

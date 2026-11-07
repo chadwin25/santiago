@@ -1,9 +1,21 @@
+<?php
+$isEdit = $customer !== null;
+
+$fullName = old('full_name') ?? ($customer['full_name'] ?? '');
+$email = old('email') ?? ($customer['email'] ?? '');
+$phone = old('phone') ?? ($customer['phone'] ?? '');
+
+$formAction = $isEdit
+    ? base_url('customers/' . $customer['id'] . '/update')
+    : base_url('customers/create');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Customer | Santiago POS</title>
+    <title><?= $isEdit ? 'Edit Customer' : 'New Customer' ?> | Santiago POS</title>
     <link rel="stylesheet" href="<?= base_url('style.css') ?>">
 </head>
 <body>
@@ -20,11 +32,18 @@
     </nav>
 
     <main class="container">
-        <p class="eyebrow">Customer accounts / New customer</p>
-        <h1>Add a <span class="accent-text">customer.</span></h1>
-        <p class="lead">Enter the customer details below.</p>
+        <p class="eyebrow">Customer accounts / <?= $isEdit ? 'Edit customer' : 'New customer' ?></p>
 
-        <form class="form-card" method="post" action="<?= base_url('customers/create') ?>">
+        <h1>
+            <?= $isEdit ? 'Edit the' : 'Add a' ?>
+            <span class="accent-text">customer.</span>
+        </h1>
+
+        <p class="lead">
+            <?= $isEdit ? 'Update the customer details below.' : 'Enter the customer details below.' ?>
+        </p>
+
+        <form class="form-card" method="post" action="<?= $formAction ?>">
             <?= csrf_field() ?>
 
             <div class="form-field">
@@ -34,7 +53,7 @@
                     id="full_name"
                     name="full_name"
                     maxlength="100"
-                    value="<?= esc(old('full_name') ?? '') ?>"
+                    value="<?= esc($fullName) ?>"
                     required
                     aria-invalid="<?= isset($validationErrors['full_name']) ? 'true' : 'false' ?>"
                 >
@@ -50,7 +69,7 @@
                     id="email"
                     name="email"
                     maxlength="100"
-                    value="<?= esc(old('email') ?? '') ?>"
+                    value="<?= esc($email) ?>"
                     required
                     aria-invalid="<?= isset($validationErrors['email']) ? 'true' : 'false' ?>"
                 >
@@ -66,14 +85,16 @@
                     id="phone"
                     name="phone"
                     maxlength="20"
-                    value="<?= esc(old('phone') ?? '') ?>"
+                    value="<?= esc($phone) ?>"
                 >
                 <?php if (isset($validationErrors['phone'])): ?>
                     <p class="form-error"><?= esc($validationErrors['phone']) ?></p>
                 <?php endif; ?>
             </div>
 
-            <button class="button button-primary" type="submit">Save customer</button>
+            <button class="button button-primary" type="submit">
+                <?= $isEdit ? 'Update customer' : 'Save customer' ?>
+            </button>
             <a class="button" href="<?= base_url('customers') ?>">Cancel</a>
         </form>
     </main>
